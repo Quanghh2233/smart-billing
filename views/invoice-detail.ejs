@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Detail - Smart Billing System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <%- include('partials/navbar') %>
+
+        <div class="container-fluid">
+            <div class="row">
+                <%- include('partials/sidebar') %>
+
+                    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                        <div id="invoice-container">
+                            <div
+                                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                                <h1 class="h2">Invoice <span id="invoice-number"></span></h1>
+                                <div class="btn-toolbar mb-2 mb-md-0">
+                                    <div class="btn-group me-2">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            id="print-invoice">
+                                            <i class="fas fa-print"></i> Print
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" id="send-invoice">
+                                            <i class="fas fa-paper-plane"></i> Send
+                                        </button>
+                                    </div>
+                                    <div class="btn-group me-2">
+                                        <button type="button" class="btn btn-sm btn-outline-success" id="record-payment"
+                                            data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                            <i class="fas fa-money-bill"></i> Record Payment
+                                        </button>
+                                    </div>
+                                    <a href="/invoices" class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-arrow-left"></i> Back
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <h5 class="mb-3">From:</h5>
+                                            <h6 class="mb-2">Smart Billing System</h6>
+                                            <p class="mb-1">123 Business Street</p>
+                                            <p class="mb-1">Business City, BC 12345</p>
+                                            <p class="mb-1">Email: contact@smartbilling.com</p>
+                                            <p class="mb-0">Phone: (123) 456-7890</p>
+                                        </div>
+                                        <div class="col-md-6 text-md-end">
+                                            <h5 class="mb-3">Bill To:</h5>
+                                            <h6 class="mb-2" id="client-name"></h6>
+                                            <p class="mb-1" id="client-address"></p>
+                                            <p class="mb-1" id="client-email"></p>
+                                            <p class="mb-0" id="client-phone"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="mb-1"><strong>Invoice Number:</strong> <span
+                                                    id="invoice-number-display"></span></div>
+                                            <div class="mb-1"><strong>Issue Date:</strong> <span id="issue-date"></span>
+                                            </div>
+                                            <div class="mb-1"><strong>Due Date:</strong> <span id="due-date"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 text-md-end">
+                                            <div class="mb-1">
+                                                <strong>Status:</strong>
+                                                <span id="status-badge" class="badge"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Description</th>
+                                                    <th class="text-end">Quantity</th>
+                                                    <th class="text-end">Price</th>
+                                                    <th class="text-end">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="invoice-items">
+                                                <!-- Invoice items will be populated here -->
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                                    <td class="text-end" id="total-amount"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="text-end"><strong>Paid:</strong></td>
+                                                    <td class="text-end" id="paid-amount"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="text-end"><strong>Balance Due:</strong></td>
+                                                    <td class="text-end" id="balance-amount"></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                        <div class="col-md-12">
+                                            <h5>Notes:</h5>
+                                            <p id="notes"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4" id="payments-section" style="display: none;">
+                                        <div class="col-md-12">
+                                            <h5>Payment History:</h5>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Amount</th>
+                                                        <th>Method</th>
+                                                        <th>Reference</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="payment-history">
+                                                    <!-- Payment history will be populated here -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+            </div>
+        </div>
+
+        <!-- Payment Modal -->
+        <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="paymentModalLabel">Record Payment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="payment-form">
+                            <div class="mb-3">
+                                <label for="payment-amount" class="form-label">Amount <span
+                                        class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="payment-amount" min="0.01" step="0.01"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="payment-date" class="form-label">Payment Date <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="payment-date" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="payment-method" class="form-label">Payment Method <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select" id="payment-method" required>
+                                    <option value="cash">Cash</option>
+                                    <option value="bank_transfer">Bank Transfer</option>
+                                    <option value="credit_card">Credit Card</option>
+                                    <option value="check">Check</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="payment-reference" class="form-label">Reference</label>
+                                <input type="text" class="form-control" id="payment-reference">
+                            </div>
+                            <div class="mb-3">
+                                <label for="payment-notes" class="form-label">Notes</label>
+                                <textarea class="form-control" id="payment-notes" rows="2"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="save-payment">Save Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="/js/auth-check.js"></script>
+        <script src="/js/invoice-detail.js"></script>
+</body>
+
+</html>

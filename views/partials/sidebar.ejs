@@ -1,0 +1,58 @@
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <div class="position-sticky pt-3">
+        <!-- Thêm form tìm kiếm số điện thoại -->
+        <div class="px-3 mb-3">
+            <form id="quick-phone-search" class="d-flex">
+                <input type="text" class="form-control form-control-sm" id="sidebar-phone-search"
+                    placeholder="Tìm theo SĐT..." aria-label="Tìm theo số điện thoại">
+                <button class="btn btn-sm btn-primary ms-1" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" id="nav-dashboard" href="/dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Bảng điều khiển
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-clients" href="/clients">
+                    <i class="fas fa-users"></i> Khách hàng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-invoices" href="/invoices">
+                    <i class="fas fa-file-invoice-dollar"></i> Hóa đơn
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-payments" href="/payments">
+                    <i class="fas fa-money-bill-wave"></i> Thanh toán
+                </a>
+            </li>
+            <li class="nav-item admin-only" style="display: none;">
+                <a class="nav-link" id="nav-users" href="/users">
+                    <i class="fas fa-user-cog"></i> Người dùng
+                </a>
+            </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Báo cáo</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="/reports/revenue">
+                    <i class="fas fa-chart-line"></i> Doanh thu
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/reports/clients">
+                    <i class="fas fa-chart-pie"></i> Tổng hợp khách hàng
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

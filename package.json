@@ -1,0 +1,26 @@
+{
+    "name": "smart-billing",
+    "version": "1.0.0",
+    "description": "Smart Billing Management System",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js",
+        "init-db": "node config/init-db.js"
+    },
+    "dependencies": {
+        "bcrypt": "^5.1.0",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
+        "sqlite3": "^5.1.6",
+        "ejs": "^3.1.9",
+        "dotenv": "^16.0.3",
+        "morgan": "^1.10.0",
+        "express-validator": "^7.0.1",
+        "multer": "^1.4.5-lts.1",
+        "nodemailer": "^6.9.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.22"
+    }
+}

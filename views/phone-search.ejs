@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bills by Phone - Smart Billing System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <%- include('partials/navbar') %>
+
+        <div class="container-fluid">
+            <div class="row">
+                <%- include('partials/sidebar') %>
+
+                    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                        <div
+                            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                            <h1 class="h2">Tìm kiếm theo Số điện thoại</h1>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <form id="phone-search-form">
+                                            <div class="mb-3">
+                                                <label for="phone-number" class="form-label">Số điện thoại</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="phone-number"
+                                                        placeholder="Nhập số điện thoại">
+                                                    <button class="btn btn-primary" type="submit" id="search-button">
+                                                        <i class="fas fa-search"></i> Tìm kiếm
+                                                    </button>
+                                                </div>
+                                                <div class="form-text">Nhập số điện thoại đầy đủ hoặc một phần</div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="search-results" style="display: none;">
+                            <div class="alert alert-info" id="search-status">
+                                <span id="result-count">0</span> hóa đơn tìm thấy cho số điện thoại "<span
+                                    id="searched-phone"></span>"
+                            </div>
+
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" id="billsTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Số hóa đơn</th>
+                                                    <th>Khách hàng</th>
+                                                    <th>Điện thoại</th>
+                                                    <th>Ngày phát hành</th>
+                                                    <th>Ngày đáo hạn</th>
+                                                    <th>Tổng cộng</th>
+                                                    <th>Đã trả</th>
+                                                    <th>Còn lại</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bills-list">
+                                                <!-- Bills will be populated here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+            </div>
+        </div>
+
+        <!-- Fix script loading order: jQuery must be loaded first -->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            // Ensure jQuery is available globally
+            window.jQuery = window.$ || window.jQuery;
+        </script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/auth-check.js"></script>
+        <script src="/js/phone-search.js"></script>
+</body>
+
+</html>
